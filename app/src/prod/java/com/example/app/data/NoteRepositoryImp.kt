@@ -8,4 +8,8 @@ class NoteRepositoryImp : NoteRepository {
     override fun retrieveNoteList(): List<Note> {
         TODO()
     }
+
+    override fun retrieveNote(id: Int): Note {
+        TODO()
+    }
 }

@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.app.data.models.Note
@@ -33,12 +35,15 @@ class NoteListFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(NoteListViewModel::class.java)
 
         (activity as? AppCompatActivity)?.setSupportActionBar(binding.toolbar)
+        NavigationUI.setupWithNavController(binding.toolbar, findNavController())
 
         setupListView()
     }
 
     private fun setupListView() {
-        val adapter = NoteListItemAdapter { note -> TODO() }
+        val adapter = NoteListItemAdapter { note ->
+            findNavController().navigate(NoteListFragmentDirections.actionNoteListFragmentToNoteDetailFragment(note))
+        }
         binding.noteList.layoutManager = LinearLayoutManager(requireContext())
         binding.noteList.adapter = adapter
 
