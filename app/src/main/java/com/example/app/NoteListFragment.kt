@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.app.data.models.Note
@@ -34,6 +35,7 @@ class NoteListFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(NoteListViewModel::class.java)
 
         (activity as? AppCompatActivity)?.setSupportActionBar(binding.toolbar)
+        NavigationUI.setupWithNavController(binding.toolbar, findNavController())
 
         setupListView()
     }
