@@ -42,8 +42,9 @@ class NoteListFragment : Fragment() {
         binding.noteList.layoutManager = LinearLayoutManager(requireContext())
         binding.noteList.adapter = adapter
 
-        val notes = viewModel.retrieveNotes()
-        adapter.setNotes(notes)
+        viewModel.notes.observe(viewLifecycleOwner, { notes ->
+            adapter.setNotes(notes)
+        })
     }
 }
 
