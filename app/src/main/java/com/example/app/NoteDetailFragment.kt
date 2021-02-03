@@ -31,6 +31,12 @@ class NoteDetailFragment : Fragment() {
         NavigationUI.setupWithNavController(binding.toolbar, findNavController())
 
         val args = navArgs<NoteDetailFragmentArgs>().value
-        binding.note = args.note
+        val note = args.note
+        binding.note = note
+
+        viewModel.retrieveNote(note.id)
+        viewModel.note.observe(viewLifecycleOwner, { note ->
+            binding.note = note
+        })
     }
 }
