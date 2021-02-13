@@ -34,7 +34,7 @@ class NoteDetailFragment : Fragment() {
         val note = args.note
         binding.note = note
 
-        viewModel.retrieveNote(note.id)
+        viewModel.setNoteId(note.id)
         viewModel.note.observe(viewLifecycleOwner, { note ->
             binding.note = note
         })
