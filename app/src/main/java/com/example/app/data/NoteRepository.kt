@@ -1,9 +1,10 @@
 package com.example.app.data
 
 import com.example.app.data.models.Note
+import kotlinx.coroutines.flow.Flow
 
 
 interface NoteRepository {
-    fun retrieveNoteList(): List<Note>
-    fun retrieveNote(id: Int): Note
+    fun getNoteList(): Flow<List<Note>>
+    fun getNote(id: Int): Flow<Note>
 }
