@@ -70,6 +70,7 @@ class NoteListItemAdapter(private val listener: NoteListItemClickListener) :
     override fun getItemCount(): Int = _notes.size
     fun setNotes(notes: List<Note>) {
         _notes = notes
+        notifyDataSetChanged()
     }
 }
 
