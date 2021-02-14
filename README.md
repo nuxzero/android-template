@@ -6,7 +6,7 @@ This is starter project for building Android app.
 
 - [x] Setup Kotlin Coroutines 
 - [x] Setup networking to fetch data from APIs
-- [ ] Setup dependency injection Dagger or Hilt
+- [x] Setup dependency injection Dagger or Hilt
 - [ ] Setup Room persistence database for caching data from the network
 - [ ] Add unit tests
 - [ ] Add UI tests
