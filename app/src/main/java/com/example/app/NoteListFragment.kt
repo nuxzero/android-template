@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,13 +14,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.app.data.models.Note
 import com.example.app.databinding.NoteItemBinding
 import com.example.app.databinding.NoteListFragmentBinding
+import dagger.hilt.android.AndroidEntryPoint
 
 typealias NoteListItemClickListener = (Note) -> Unit
 
+@AndroidEntryPoint
 class NoteListFragment : Fragment() {
 
     private lateinit var binding: NoteListFragmentBinding
-    private lateinit var viewModel: NoteListViewModel
+    private val viewModel: NoteListViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,7 +34,6 @@ class NoteListFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(NoteListViewModel::class.java)
 
         (activity as? AppCompatActivity)?.setSupportActionBar(binding.toolbar)
         NavigationUI.setupWithNavController(binding.toolbar, findNavController())
