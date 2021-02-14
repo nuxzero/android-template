@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -48,7 +49,7 @@ class NoteListFragment : Fragment() {
         binding.noteList.layoutManager = LinearLayoutManager(requireContext())
         binding.noteList.adapter = adapter
 
-        viewModel.notes.observe(viewLifecycleOwner, { notes ->
+        viewModel.notes.observe(viewLifecycleOwner, Observer { notes ->
             adapter.setNotes(notes)
         })
     }

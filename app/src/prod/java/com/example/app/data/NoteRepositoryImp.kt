@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 
-class NoteRepositoryImp(@Inject private val noteApi: NoteApi) : NoteRepository {
+class NoteRepositoryImp @Inject constructor(private val noteApi: NoteApi) : NoteRepository {
     override fun getNoteList(): Flow<List<Note>> {
         return flow { emit(noteApi.getNoteList()) }
     }
