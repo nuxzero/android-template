@@ -11,14 +11,14 @@ import com.example.app.data.models.Note
 interface NoteDao {
 
     @Query("SELECT * FROM note")
-    fun getAll(): List<Note>
+    suspend fun getAll(): List<Note>
 
     @Query("SELECT * FROM note WHERE id == :id")
-    fun findById(id: Int): Note
+    suspend fun findById(id: Int): Note
 
     @Insert
-    fun insertAll(vararg notes: Note)
+    suspend fun insertAll(vararg notes: Note)
 
     @Delete
-    fun delete(note: Note)
+    suspend fun delete(note: Note)
 }

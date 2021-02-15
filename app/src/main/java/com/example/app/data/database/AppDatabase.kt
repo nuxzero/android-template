@@ -11,4 +11,5 @@ import com.example.app.data.models.Profile
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun noteDao(): NoteDao
+    abstract fun profileDao(): ProfileDao
 }

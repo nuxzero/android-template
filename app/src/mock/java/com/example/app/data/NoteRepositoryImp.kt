@@ -6,8 +6,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import java.util.Date
 import javax.inject.Inject
+import javax.inject.Singleton
 
-
+@Singleton
 class NoteRepositoryImp @Inject constructor(private val noteApi: NoteApi) : NoteRepository {
     @OptIn(ExperimentalStdlibApi::class)
     private val mockNotes: List<Note>
