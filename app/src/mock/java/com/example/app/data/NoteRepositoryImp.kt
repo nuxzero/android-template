@@ -1,12 +1,15 @@
 package com.example.app.data
 
 import com.example.app.data.models.Note
+import com.example.app.data.network.NoteApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import java.util.Date
+import javax.inject.Inject
+import javax.inject.Singleton
 
-
-class NoteRepositoryImp : NoteRepository {
+@Singleton
+class NoteRepositoryImp @Inject constructor(private val noteApi: NoteApi) : NoteRepository {
     @OptIn(ExperimentalStdlibApi::class)
     private val mockNotes: List<Note>
         get() = buildList {
