@@ -20,3 +20,4 @@ This is starter project for building Android app.
 ## References
 
 - Networking [Retrofit](https://square.github.io/retrofit/)
+- Room database [type converter](https://developer.android.com/training/data-storage/room/referencing-data)
