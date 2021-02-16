@@ -3,6 +3,7 @@ package com.example.app.data.database
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.app.data.models.Note
 
@@ -16,7 +17,7 @@ interface NoteDao {
     @Query("SELECT * FROM note WHERE id == :id")
     suspend fun findById(id: Int): Note
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(vararg notes: Note)
 
     @Delete

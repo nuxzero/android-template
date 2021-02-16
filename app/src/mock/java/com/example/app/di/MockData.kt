@@ -1,15 +1,11 @@
-package com.example.app.data
+package com.example.app.di
 
 import com.example.app.data.models.Note
-import com.example.app.data.network.NoteApi
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import com.example.app.data.models.Profile
 import java.util.Date
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class NoteRepositoryImp @Inject constructor(private val noteApi: NoteApi) : NoteRepository {
+
+object MockData {
     @OptIn(ExperimentalStdlibApi::class)
     private val mockNotes: List<Note>
         get() = buildList {
@@ -26,12 +22,17 @@ class NoteRepositoryImp @Inject constructor(private val noteApi: NoteApi) : Note
             }
         }
 
-    override fun getNoteList(): Flow<List<Note>> = flow {
-        emit(mockNotes)
-    }
+    private val mockProfile: Profile = Profile(
+        id = 1,
+        fullName = "John Doe",
+        email = "john@mail.com",
+        image = "https://i.picsum.photos/id/669/4869/3456.jpg?hmac=g-4rQWsPdHoLi5g6ahHlvjKubSQzR-D9m7-WtblbmyM",
+    )
 
-    override fun getNote(id: Int): Flow<Note> = flow {
-        val note = mockNotes.find { it.id == id } ?: throw IllegalArgumentException("Could not found note with id: $id")
-        emit(note)
-    }
+    fun getAllNotes(): List<Note> = mockNotes
+
+    fun getNote(id: Int): Note = mockNotes.find { it.id == id }
+        ?: throw IllegalArgumentException("Could not found note with id: $id")
+
+    fun getProfile(): Profile = mockProfile
 }
