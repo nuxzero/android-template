@@ -1,6 +1,7 @@
 package com.example.app.di
 
 import com.example.app.data.network.NoteApi
+import com.example.app.data.network.ProfileApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,6 +16,7 @@ import javax.inject.Singleton
 @Module
 object NetworkModule {
 
+    private const val HOST_NAME = "https://blooming-falls-95246.herokuapp.com/"
     @Provides
     @Singleton
     fun provideRetrofit(): Retrofit {
@@ -24,7 +26,7 @@ object NetworkModule {
             .build()
         return Retrofit.Builder()
             .client(client)
-            .baseUrl("https://blooming-falls-95246.herokuapp.com/")
+            .baseUrl(HOST_NAME)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
@@ -32,5 +34,10 @@ object NetworkModule {
     @Provides
     fun provideNoteApi(retrofit: Retrofit): NoteApi {
         return retrofit.create(NoteApi::class.java)
+    }
+
+    @Provides
+    fun provideProfileApi(retrofit: Retrofit): ProfileApi {
+        return retrofit.create(ProfileApi::class.java)
     }
 }
