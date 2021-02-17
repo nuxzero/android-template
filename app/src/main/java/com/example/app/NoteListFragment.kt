@@ -83,8 +83,8 @@ class NoteListItemViewHolder(
 
     fun bind(note: Note) {
         with(binding) {
-            titleText.text = note.title
-            root.setOnClickListener { listener.invoke(note) }
+            this.note = note
+            this.root.setOnClickListener { listener.invoke(note) }
         }
     }
 }
