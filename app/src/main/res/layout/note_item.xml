@@ -21,9 +21,11 @@
             android:layout_marginStart="@dimen/margin_medium"
             android:layout_marginTop="@dimen/margin_medium"
             android:layout_marginBottom="@dimen/margin_medium"
+            android:srcUrl="@{note.image}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/avatars" />
 
         <TextView
             android:id="@+id/title_text"
@@ -53,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_medium"
-            android:text="@{note.createdAt.toLocaleString()}"
+            android:dateText="@{note.createdAt}"
             app:layout_constraintBaseline_toBaselineOf="@id/author_text"
             app:layout_constraintEnd_toEndOf="parent"
             tools:text="Jan 1, 2021" />

@@ -11,6 +11,7 @@ buildscript {
         dagger_hilt_version = "2.32-alpha"
         hilt_version = "1.0.0-alpha03"
         room_version = "2.2.6"
+        gilde_version = "4.12.0"
     }
     repositories {
         google()
