@@ -26,7 +26,7 @@ object MockData {
         id = 1,
         fullName = "John Doe",
         email = "john@mail.com",
-        image = "https://i.picsum.photos/id/669/4869/3456.jpg?hmac=g-4rQWsPdHoLi5g6ahHlvjKubSQzR-D9m7-WtblbmyM",
+        image = "https://picsum.photos/id/433/300/300",
     )
 
     fun getAllNotes(): List<Note> = mockNotes

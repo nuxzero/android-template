@@ -10,7 +10,7 @@ import java.util.Date
 
 
 @BindingAdapter("android:srcUrl")
-fun setImageUrl(imageView: ImageView, imageUrl: String) {
+fun setImageUrl(imageView: ImageView, imageUrl: String?) {
     Glide.with(imageView)
         .load(imageUrl)
         .centerCrop()
