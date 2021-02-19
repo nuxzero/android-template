@@ -4,11 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI
 import com.example.app.databinding.AccountFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -28,9 +25,6 @@ class AccountFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        (activity as? AppCompatActivity)?.setSupportActionBar(binding.toolbar)
-        NavigationUI.setupWithNavController(binding.toolbar, findNavController())
 
         binding.lifecycleOwner = viewLifecycleOwner
         binding.profile = viewModel.profile
