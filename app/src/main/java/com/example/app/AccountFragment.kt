@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.app.databinding.AccountFragmentBinding
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -28,5 +29,21 @@ class AccountFragment : Fragment() {
 
         binding.lifecycleOwner = viewLifecycleOwner
         binding.profile = viewModel.profile
+
+        binding.notificationsSettingText.setOnClickListener(::showNotificationSettings)
+        binding.faqSettingText.setOnClickListener(::showFaq)
+        binding.policySettingText.setOnClickListener(::showPolicy)
+    }
+
+    private fun showNotificationSettings(view: View?) {
+        Snackbar.make(binding.root, "Tapped notification setting", Snackbar.LENGTH_SHORT).show()
+    }
+
+    private fun showFaq(view: View?) {
+        Snackbar.make(binding.root, "Tapped FAQ", Snackbar.LENGTH_SHORT).show()
+    }
+
+    private fun showPolicy(view: View?) {
+        Snackbar.make(binding.root, "Tapped policy", Snackbar.LENGTH_SHORT).show()
     }
 }
