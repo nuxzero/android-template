@@ -22,11 +22,6 @@
             app:argType="com.example.app.data.models.Note" />
     </fragment>
     <fragment
-        android:id="@+id/search_fragment"
-        android:name="com.example.app.SearchFragment"
-        android:label="search_fragment"
-        tools:layout="@layout/search_fragment" />
-    <fragment
         android:id="@+id/account_fragment"
         android:name="com.example.app.AccountFragment"
         tools:layout="@layout/account_fragment" />
