@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,7 +17,7 @@ import com.example.app.databinding.NoteItemBinding
 import com.example.app.databinding.NoteListFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 
-typealias NoteListItemClickListener = (Note) -> Unit
+typealias NoteListItemClickListener = (View, Note) -> Unit
 
 @AndroidEntryPoint
 class NoteListFragment : Fragment() {
@@ -42,8 +43,11 @@ class NoteListFragment : Fragment() {
     }
 
     private fun setupListView() {
-        val adapter = NoteListItemAdapter { note ->
-            findNavController().navigate(NoteListFragmentDirections.actionNoteListFragmentToNoteDetailFragment(note))
+        val adapter = NoteListItemAdapter { itemView, note ->
+            val noteDetailTransitionName = getString(R.string.note_detail_transition_name)
+            val extras = FragmentNavigatorExtras(itemView to noteDetailTransitionName)
+            val direction = NoteListFragmentDirections.actionNoteListFragmentToNoteDetailFragment(note)
+            findNavController().navigate(direction, extras)
         }
         binding.noteList.layoutManager = LinearLayoutManager(requireContext())
         binding.noteList.adapter = adapter
@@ -83,7 +87,7 @@ class NoteListItemViewHolder(
     fun bind(note: Note) {
         with(binding) {
             this.note = note
-            this.root.setOnClickListener { listener.invoke(note) }
+            this.root.setOnClickListener { listener.invoke(binding.root, note) }
         }
     }
 }

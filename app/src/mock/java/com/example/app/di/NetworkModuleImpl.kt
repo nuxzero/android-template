@@ -40,10 +40,6 @@ object NetworkModuleImpl : NetworkModule {
             return MockData.getAllNotes()
         }
 
-        override suspend fun getNoteList(search: String): List<Note> {
-            return MockData.getAllNotes().filter { it.title.contains(search) }
-        }
-
         override suspend fun getNote(id: Int): Note {
             return MockData.getNote(id)
         }

@@ -1,10 +1,13 @@
 package com.example.app
 
+import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -12,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.NavigationUI
 import com.example.app.databinding.NoteDetailFragmentBinding
+import com.google.android.material.transition.MaterialContainerTransform
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -26,18 +30,23 @@ class NoteDetailFragment : Fragment() {
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         (activity as? AppCompatActivity)?.setSupportActionBar(binding.toolbar)
         NavigationUI.setupWithNavController(binding.toolbar, findNavController())
 
+        sharedElementEnterTransition = MaterialContainerTransform().apply {
+            drawingViewId = R.id.nav_host_fragment
+            duration = resources.getInteger(R.integer.note_motion_duration).toLong()
+            scrimColor = Color.TRANSPARENT
+//            setAllContainerColors(requireContext().themeColors(R.attr.colorSurface))
+        }
+
         val args = navArgs<NoteDetailFragmentArgs>().value
         val note = args.note
-        binding.note = note
-
         viewModel.setNoteId(note.id)
-        viewModel.note.observe(viewLifecycleOwner, Observer { note ->
+        viewModel.note.observe(viewLifecycleOwner, { note ->
             binding.note = note
         })
     }
