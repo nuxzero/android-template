@@ -11,7 +11,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.app.data.models.Note
 import com.example.app.databinding.NoteItemBinding
@@ -63,7 +62,6 @@ class NoteListFragment : Fragment() {
                 duration = resources.getInteger(R.integer.note_motion_duration).toLong()
             }
         }
-        binding.noteList.layoutManager = LinearLayoutManager(requireContext())
         binding.noteList.adapter = adapter
 
         viewModel.notes.observe(viewLifecycleOwner, { notes ->
