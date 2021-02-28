@@ -5,18 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.app.data.models.Note
 import com.example.app.databinding.NoteItemBinding
 import com.example.app.databinding.NoteListFragmentBinding
+import com.google.android.material.transition.MaterialElevationScale
 import dagger.hilt.android.AndroidEntryPoint
 
-typealias NoteListItemClickListener = (Note) -> Unit
+typealias NoteListItemClickListener = (View, Note) -> Unit
 
 @AndroidEntryPoint
 class NoteListFragment : Fragment() {
@@ -38,14 +40,28 @@ class NoteListFragment : Fragment() {
         (activity as? AppCompatActivity)?.setSupportActionBar(binding.toolbar)
         NavigationUI.setupWithNavController(binding.toolbar, findNavController())
 
+        postponeEnterTransition()
+        binding.root.doOnPreDraw { startPostponedEnterTransition() }
+
         setupListView()
     }
 
     private fun setupListView() {
-        val adapter = NoteListItemAdapter { note ->
-            findNavController().navigate(NoteListFragmentDirections.actionNoteListFragmentToNoteDetailFragment(note))
+        val adapter = NoteListItemAdapter { itemView, note ->
+            // Navigate to note detail
+            val noteDetailTransitionName = getString(R.string.note_detail_transition_name)
+            val extras = FragmentNavigatorExtras(itemView to noteDetailTransitionName)
+            val direction = NoteListFragmentDirections.actionNoteListFragmentToNoteDetailFragment(note)
+            findNavController().navigate(direction, extras)
+
+            // Set layout motion
+            exitTransition = MaterialElevationScale(false).apply {
+                duration = resources.getInteger(R.integer.note_motion_duration).toLong()
+            }
+            reenterTransition = MaterialElevationScale(true).apply {
+                duration = resources.getInteger(R.integer.note_motion_duration).toLong()
+            }
         }
-        binding.noteList.layoutManager = LinearLayoutManager(requireContext())
         binding.noteList.adapter = adapter
 
         viewModel.notes.observe(viewLifecycleOwner, { notes ->
@@ -83,7 +99,7 @@ class NoteListItemViewHolder(
     fun bind(note: Note) {
         with(binding) {
             this.note = note
-            this.root.setOnClickListener { listener.invoke(note) }
+            this.root.setOnClickListener { listener.invoke(binding.root, note) }
         }
     }
 }
