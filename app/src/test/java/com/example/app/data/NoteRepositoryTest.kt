@@ -3,6 +3,7 @@ package com.example.app.data
 import com.example.app.data.database.NoteDao
 import com.example.app.data.models.Note
 import com.example.app.data.network.NoteApi
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert.assertEquals
@@ -12,6 +13,7 @@ import org.mockito.Mockito.mock
 import java.util.Date
 
 
+@ExperimentalCoroutinesApi
 class NoteRepositoryTest {
 
     private val noteApi: NoteApi = mock(NoteApi::class.java)
