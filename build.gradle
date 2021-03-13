@@ -12,6 +12,9 @@ buildscript {
         hilt_version = "1.0.0-alpha03"
         room_version = "2.2.6"
         gilde_version = "4.12.0"
+        mockito_version = "3.4.6"
+        coroutines_version = "1.3.7"
+        arch_version = "2.1.0"
     }
     repositories {
         google()
