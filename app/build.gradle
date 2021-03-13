@@ -48,6 +48,9 @@ android {
     buildFeatures {
         dataBinding true
     }
+    testOptions {
+        unitTests.includeAndroidResources = true
+    }
 }
 
 dependencies {
@@ -82,4 +85,9 @@ dependencies {
     kapt "androidx.room:room-compiler:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
     testImplementation "androidx.room:room-testing:$room_version"
+
+    // Mocktio framework
+    testImplementation "org.mockito:mockito-core:$mockito_version"
+
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
 }
