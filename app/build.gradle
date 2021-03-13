@@ -49,7 +49,16 @@ android {
         dataBinding true
     }
     testOptions {
-        unitTests.includeAndroidResources = true
+        unitTests {
+            returnDefaultValues true
+            includeAndroidResources true
+            all {
+                testLogging {
+                    events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
+                }
+            }
+        }
+        animationsDisabled true
     }
 }
 
