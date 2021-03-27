@@ -18,7 +18,7 @@ class NoteRepositoryTest {
 
     private val noteApi: NoteApi = mock(NoteApi::class.java)
     private val noteDao: NoteDao = mock(NoteDao::class.java)
-    private val repository = NoteRepository(noteApi, noteDao)
+    private val repository = NoteRepositoryImpl(noteApi, noteDao)
 
     @Test
     fun `get notes successful`() = runBlockingTest {

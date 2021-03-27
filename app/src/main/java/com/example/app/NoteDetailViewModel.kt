@@ -5,13 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.switchMap
-import com.example.app.data.NoteRepository
+import com.example.app.data.NoteRepositoryImpl
 import com.example.app.data.models.Note
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class NoteDetailViewModel @Inject constructor(private val repository: NoteRepository) : ViewModel() {
+class NoteDetailViewModel @Inject constructor(private val repository: NoteRepositoryImpl) : ViewModel() {
     private val noteId = MutableLiveData<Int>()
     val note: LiveData<Note> = noteId.switchMap { id ->
         repository.getNote(id).asLiveData()

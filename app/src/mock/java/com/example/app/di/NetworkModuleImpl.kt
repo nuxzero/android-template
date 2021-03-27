@@ -34,6 +34,8 @@ object NetworkModuleImpl : NetworkModule {
             .build()
     }
 
+    @Singleton
+    @NoteApiAnnotation
     @Provides
     override fun provideNoteApi(retrofit: Retrofit): NoteApi = object : NoteApi {
         override suspend fun getNoteList(): List<Note> {

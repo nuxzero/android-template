@@ -17,6 +17,11 @@ import javax.inject.Singleton
 object NetworkModuleImpl : NetworkModule {
 
     private const val HOST_NAME = "https://blooming-falls-95246.herokuapp.com/"
+
+    @Qualifier
+    @Retention(RUNTIME)
+    annotation class NoteApiAnnotation
+
     @Provides
     @Singleton
     override fun provideRetrofit(): Retrofit {

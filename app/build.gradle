@@ -74,10 +74,16 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    // Networking
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
-    implementation "com.google.code.gson:gson:2.8.6"
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_logging_version"
+
+    // JSON serializer
+    implementation "com.google.code.gson:gson:2.8.6"
+
+    // Image loader
     implementation "com.github.bumptech.glide:glide:$gilde_version"
     kapt "com.github.bumptech.glide:compiler:$gilde_version"
 
@@ -91,7 +97,7 @@ dependencies {
     implementation "androidx.room:room-ktx:$room_version"
     testImplementation "androidx.room:room-testing:$room_version"
 
-    // Mocktio framework
+    // Mock framework
     testImplementation "org.mockito:mockito-core:$mockito_version"
 
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
@@ -99,7 +105,6 @@ dependencies {
 
     testImplementation "androidx.arch.core:core-testing:$arch_version"
     androidTestImplementation "androidx.arch.core:core-testing:$arch_version"
-
     debugImplementation "androidx.fragment:fragment-testing:$fragment_version"
 
     // Dependency injection

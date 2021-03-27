@@ -28,6 +28,8 @@ object DatabaseModuleImpl : DatabaseModule {
         ).build()
     }
 
+    @Singleton
+    @NoteDaoAnnotation
     @Provides
     override fun provideNoteDao(database: AppDatabase): NoteDao = object : NoteDao {
         override suspend fun getAll(): List<Note> {
