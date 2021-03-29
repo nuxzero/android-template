@@ -1,4 +1,4 @@
-package com.example.app
+package com.example.app.ui.notes
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel

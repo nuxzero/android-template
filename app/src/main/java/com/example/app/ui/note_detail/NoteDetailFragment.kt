@@ -1,4 +1,4 @@
-package com.example.app
+package com.example.app.ui.note_detail
 
 import android.graphics.Color
 import android.os.Bundle
@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.NavigationUI
+import com.example.app.R
 import com.example.app.databinding.NoteDetailFragmentBinding
 import com.example.app.util.themeColor
 import com.google.android.material.transition.MaterialContainerTransform

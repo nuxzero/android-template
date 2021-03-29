@@ -1,4 +1,4 @@
-package com.example.app
+package com.example.app.ui.splash_screen
 
 import androidx.lifecycle.ViewModel
 

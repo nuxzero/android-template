@@ -4,6 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.example.app.data.NoteRepository
 import com.example.app.data.models.Note
+import com.example.app.ui.note_detail.NoteDetailViewModel
 import com.example.app.utils.CoroutineTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf

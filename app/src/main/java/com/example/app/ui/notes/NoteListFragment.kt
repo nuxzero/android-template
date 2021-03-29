@@ -1,4 +1,4 @@
-package com.example.app
+package com.example.app.ui.notes
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,6 +12,7 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.RecyclerView
+import com.example.app.R
 import com.example.app.data.models.Note
 import com.example.app.databinding.NoteItemBinding
 import com.example.app.databinding.NoteListFragmentBinding

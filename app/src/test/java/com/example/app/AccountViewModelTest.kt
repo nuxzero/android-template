@@ -4,6 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.example.app.data.ProfileRepository
 import com.example.app.data.models.Profile
+import com.example.app.ui.account.AccountViewModel
 import com.example.app.utils.CoroutineTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
