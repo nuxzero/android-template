@@ -14,7 +14,6 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
-@InstallIn(SingletonComponent::class)
 @Module
 object DatabaseModuleImpl : DatabaseModule {
     private const val DATABASE_NAME = "note_database"
@@ -29,6 +28,7 @@ object DatabaseModuleImpl : DatabaseModule {
     }
 
     @Provides
+    @Singleton
     override fun provideNoteDao(database: AppDatabase): NoteDao = object : NoteDao {
         override suspend fun getAll(): List<Note> {
             return MockData.getAllNotes()
@@ -47,6 +47,7 @@ object DatabaseModuleImpl : DatabaseModule {
     }
 
     @Provides
+    @Singleton
     override fun provideProfileDao(database: AppDatabase): ProfileDao = object: ProfileDao {
         override suspend fun get(): Profile {
             return MockData.getProfile()

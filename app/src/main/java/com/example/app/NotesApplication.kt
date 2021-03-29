@@ -1,9 +1,11 @@
 package com.example.app
 
-import android.app.Application
-import dagger.hilt.android.HiltAndroidApp
+import dagger.android.AndroidInjector
+import dagger.android.DaggerApplication
 
 
-@HiltAndroidApp
-class NotesApplication : Application() {
+class NotesApplication : DaggerApplication() {
+    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
+        return DaggerNotesApplicationComponent.factory().create(applicationContext)
+    }
 }

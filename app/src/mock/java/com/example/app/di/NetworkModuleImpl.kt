@@ -35,6 +35,7 @@ object NetworkModuleImpl : NetworkModule {
     }
 
     @Provides
+    @Singleton
     override fun provideNoteApi(retrofit: Retrofit): NoteApi = object : NoteApi {
         override suspend fun getNoteList(): List<Note> {
             return MockData.getAllNotes()
@@ -46,6 +47,7 @@ object NetworkModuleImpl : NetworkModule {
     }
 
     @Provides
+    @Singleton
     override fun provideProfileApi(retrofit: Retrofit): ProfileApi = object : ProfileApi {
         override suspend fun getProfile(): Profile {
             return MockData.getProfile()
