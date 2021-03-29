@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/note_list_fragment"
-        android:name="com.example.app.NoteListFragment"
+        android:name="com.example.app.ui.notes.NoteListFragment"
         tools:layout="@layout/note_list_fragment">
         <action
             android:id="@+id/action_note_list_fragment_to_note_detail_fragment"
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/note_detail_fragment"
-        android:name="com.example.app.NoteDetailFragment"
+        android:name="com.example.app.ui.note_detail.NoteDetailFragment"
         tools:layout="@layout/note_detail_fragment">
         <argument
             android:name="note"
@@ -23,6 +23,6 @@
     </fragment>
     <fragment
         android:id="@+id/account_fragment"
-        android:name="com.example.app.AccountFragment"
+        android:name="com.example.app.ui.account.AccountFragment"
         tools:layout="@layout/account_fragment" />
 </navigation>

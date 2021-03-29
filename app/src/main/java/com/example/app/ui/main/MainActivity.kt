@@ -1,4 +1,4 @@
-package com.example.app
+package com.example.app.ui.main
 
 import android.os.Bundle
 import android.view.View
@@ -10,6 +10,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
+import com.example.app.R
 import com.example.app.databinding.MainActivityBinding
 import dagger.hilt.android.AndroidEntryPoint
 
