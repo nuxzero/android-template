@@ -12,9 +12,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
 import com.example.app.R
 import com.example.app.databinding.MainActivityBinding
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private val navController: NavController by lazy { findNavController(R.id.nav_host_fragment) }

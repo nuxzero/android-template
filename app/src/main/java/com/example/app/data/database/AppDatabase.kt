@@ -7,7 +7,7 @@ import com.example.app.data.models.Note
 import com.example.app.data.models.Profile
 
 
-@Database(entities = [Note::class, Profile::class], version = 1)
+@Database(entities = [Note::class, Profile::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun noteDao(): NoteDao

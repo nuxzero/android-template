@@ -1,5 +1,6 @@
 package com.example.app
 
+import com.example.app.di.DaggerNotesApplicationComponent
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 
