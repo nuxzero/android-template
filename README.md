@@ -2,19 +2,26 @@
 
 This is starter project for building Android app.
 
+## Branch Description 
+
+| Branch name | Description |
+|---|---|
+| [`aac-dagger-binding`](https://github.com/nuxzero/android-template/tree/aac-dagger-binding) | Android Architecture Component, Dagger2, Data Binding |
+| [`aac-hilt-binding`](https://github.com/nuxzero/android-template/tree/aac-hilt-binding) | Android Architecture Component, Hilt, Data Binding |
+
 ## Tasks
 
 - [x] Setup Kotlin Coroutines 
 - [x] Setup networking to fetch data from APIs
 - [x] Setup dependency injection Dagger or Hilt
 - [x] Setup Room persistence database for caching data from the network
+- [x] Implement repository classes 
+- [x] Support dark theme 
+- [x] Put some animations in the app
+- [x] Update layout follow design
 - [ ] Add unit tests
 - [ ] Add UI tests
 - [ ] E2E tests
-- [ ] Implement repository classes 
-- [ ] Support dark theme 
-- [ ] Put some animations in the app
-- [ ] Update layout follow design
 
 ## References
 
