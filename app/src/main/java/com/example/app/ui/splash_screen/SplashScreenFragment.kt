@@ -1,20 +1,16 @@
 package com.example.app.ui.splash_screen
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import com.example.app.R
+import com.example.app.util.BaseFragment
 
-class SplashScreenFragment : Fragment() {
+class SplashScreenFragment : BaseFragment() {
 
-    companion object {
-        fun newInstance() = SplashScreenFragment()
-    }
-
-    private lateinit var viewModel: SplashScreenViewModel
+    private val viewModel: SplashScreenViewModel by viewModels { viewModelFactory }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -22,11 +18,4 @@ class SplashScreenFragment : Fragment() {
     ): View? {
         return inflater.inflate(R.layout.splash_screen_fragment, container, false)
     }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(SplashScreenViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
-
 }

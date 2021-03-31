@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.doOnPreDraw
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
@@ -16,16 +15,15 @@ import com.example.app.R
 import com.example.app.data.models.Note
 import com.example.app.databinding.NoteItemBinding
 import com.example.app.databinding.NoteListFragmentBinding
+import com.example.app.util.BaseFragment
 import com.google.android.material.transition.MaterialElevationScale
-import dagger.hilt.android.AndroidEntryPoint
 
 typealias NoteListItemClickListener = (View, Note) -> Unit
 
-@AndroidEntryPoint
-class NoteListFragment : Fragment() {
+class NoteListFragment : BaseFragment() {
 
     private lateinit var binding: NoteListFragmentBinding
-    private val viewModel: NoteListViewModel by viewModels()
+    private val viewModel: NoteListViewModel by viewModels { viewModelFactory }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
