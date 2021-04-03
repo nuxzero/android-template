@@ -82,6 +82,7 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_logging_version"
     implementation "com.github.bumptech.glide:glide:$gilde_version"
     kapt "com.github.bumptech.glide:compiler:$gilde_version"
+    implementation "androidx.fragment:fragment-ktx:$fragment_version"
 
     // dependency injection
     implementation "com.google.dagger:dagger:$dagger_version"
