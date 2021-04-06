@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.app.R
 import com.example.app.data.models.Note
@@ -36,8 +37,9 @@ class NoteListFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        (activity as? AppCompatActivity)?.setSupportActionBar(binding.toolbar)
-        NavigationUI.setupWithNavController(binding.toolbar, findNavController())
+        binding.toolbar.setupWithNavController(findNavController())
+//        (activity as? AppCompatActivity)?.setSupportActionBar(binding.toolbar)
+//        NavigationUI.setupWithNavController(binding.toolbar, findNavController())
 
         postponeEnterTransition()
         binding.root.doOnPreDraw { startPostponedEnterTransition() }
