@@ -5,8 +5,11 @@ import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.Navigation
 import androidx.navigation.testing.TestNavHostController
+import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -15,12 +18,16 @@ import com.example.app.R
 import com.example.app.data.models.Note
 import com.example.app.util.ViewModelFactory
 import com.example.app.util.onAttached
+import com.example.app.utils.itemCount
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
+import java.util.Date
 
 @RunWith(AndroidJUnit4::class)
 class NoteListFragmentTest {
@@ -31,6 +38,33 @@ class NoteListFragmentTest {
     private val mockViewModel = mock(NoteListViewModel::class.java)
     private val notesLiveData = MutableLiveData<List<Note>>()
     private val context = InstrumentationRegistry.getInstrumentation().targetContext
+
+    private val testNotes = listOf(
+        Note(
+            id = 1,
+            title = "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+            author = "John Doe",
+            createdAt = Date(),
+            image = "https://picsum.photos/id/486/1280/720",
+            note = ""
+        ),
+        Note(
+            id = 2,
+            title = "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+            author = "John Doe",
+            createdAt = Date(),
+            image = "https://picsum.photos/id/486/1280/720",
+            note = ""
+        ),
+        Note(
+            id = 3,
+            title = "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+            author = "John Doe",
+            createdAt = Date(),
+            image = "https://picsum.photos/id/486/1280/720",
+            note = ""
+        ),
+    )
 
     @Before
     fun setUp() {
@@ -59,10 +93,20 @@ class NoteListFragmentTest {
     }
 
     @Test
-    fun showNotes_shouldDisplayNotes() {
-        notesLiveData.postValue(emptyList())
+    fun showNotes_successful() {
+        notesLiveData.postValue(testNotes)
 
         onView(withId(R.id.note_list)).check(matches(isDisplayed()))
-//        onView(withId(R.id.highlight_product_list)).check(ViewAssertions.matches(itemCount(products.size)))
+        onView(withId(R.id.note_list)).check(matches(itemCount(testNotes.size)))
+    }
+
+    @Test
+    fun clickNoteItem_navigatesToNoteDetail() {
+        notesLiveData.postValue(testNotes)
+
+        onView(withId(R.id.note_list)).perform(actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
+
+        assertEquals(R.id.note_detail_fragment, navHostController.currentDestination?.id)
+        assertNotNull(navHostController.currentDestination!!.arguments["note"])
     }
 }
