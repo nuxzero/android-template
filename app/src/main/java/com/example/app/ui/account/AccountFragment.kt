@@ -4,6 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.fragment.app.viewModels
 import com.example.app.databinding.AccountFragmentBinding
 import com.example.app.util.BaseFragment
@@ -14,11 +18,14 @@ class AccountFragment : BaseFragment() {
     private lateinit var binding: AccountFragmentBinding
     private val viewModel: AccountViewModel by viewModels { viewModelFactory }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = AccountFragmentBinding.inflate(inflater, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        binding = AccountFragmentBinding.inflate(inflater, container, false).apply {
+            settingMenu.setContent {
+                MaterialTheme {
+                    SettingMenu("Term and Condition")
+                }
+            }
+        }
         return binding.root
     }
 
@@ -43,5 +50,18 @@ class AccountFragment : BaseFragment() {
 
     private fun showPolicy(view: View?) {
         Snackbar.make(binding.root, "Tapped policy", Snackbar.LENGTH_SHORT).show()
+    }
+}
+
+@Composable
+fun SettingMenu(title: String) {
+    Text(title)
+}
+
+@Preview
+@Composable
+private fun SettingMenuPreview() {
+    MaterialTheme {
+        SettingMenu("Test menu")
     }
 }
