@@ -15,6 +15,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -41,7 +43,7 @@ class AccountFragment : BaseFragment() {
         binding = AccountFragmentBinding.inflate(inflater, container, false).apply {
             settingMenu.setContent {
                 MaterialTheme {
-                    SettingMenu()
+                    AccountSettings(viewModel)
                 }
             }
         }
@@ -73,9 +75,17 @@ class AccountFragment : BaseFragment() {
 }
 
 @Composable
+fun AccountSettings(viewModel: AccountViewModel) {
+    val profile by viewModel.profile.observeAsState()
+    profile?.let {
+        AccountSettings(it)
+    }
+}
+
+@Composable
 fun AccountSettings(profile: Profile) {
     Column {
-        ProfileInfo(profile = profile)
+        ProfileInfo(profile)
         SettingMenu()
     }
 }
@@ -89,7 +99,7 @@ fun ProfileInfo(profile: Profile) {
             .fillMaxWidth()
     ) {
         GlideImage(
-            data = "https://picsum.photos/id/237/200/300",
+            data = profile.image,
             contentDescription = null,
             fadeIn = true,
             contentScale = ContentScale.Crop,
@@ -149,14 +159,13 @@ fun SettingMenuItem(title: String) {
 @Preview
 @Composable
 fun AccountSettingsPreview() {
+    val profile = Profile(
+        id = 1,
+        fullName = "John Doe",
+        email = "john@email.com",
+        image = "https://picsum.photos/id/237/200/300"
+    )
     MaterialTheme {
-        AccountSettings(
-            Profile(
-                id = 1,
-                fullName = "John Doe",
-                email = "john@email.com",
-                image = "https://picsum.photos/id/237/200/300"
-            )
-        )
+        AccountSettings(profile)
     }
 }
