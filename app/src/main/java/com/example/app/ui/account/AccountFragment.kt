@@ -21,7 +21,7 @@ import androidx.compose.material.Snackbar
 import androidx.compose.material.SnackbarDuration
 import androidx.compose.material.SnackbarHost
 import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.material.lightColors
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -50,10 +50,24 @@ class AccountFragment : BaseFragment() {
     private lateinit var binding: AccountFragmentBinding
     private val viewModel: AccountViewModel by viewModels { viewModelFactory }
 
+    // TODO: Move these colors to proper theme file
+    val Red700 = Color(0xffdd0d3c)
+    val Red800 = Color(0xffd00036)
+    val Red900 = Color(0xffc20029)
+    private val LightColors = lightColors(
+        primary = Red700,
+        primaryVariant = Red900,
+        onPrimary = Color.White,
+        secondary = Red700,
+        secondaryVariant = Red900,
+        onSecondary = Color.White,
+        error = Red800,
+        background = Color(0xff000000)
+    )
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = AccountFragmentBinding.inflate(inflater, container, false).apply {
             containerView.setContent {
-                MaterialTheme {
+                MaterialTheme(colors = LightColors) {
                     AccountSettingsScreen(viewModel)
                 }
             }
@@ -83,9 +97,10 @@ fun AccountSettingsScreen(viewModel: AccountViewModel) {
     val coroutineScope = rememberCoroutineScope()
     Scaffold(
         scaffoldState = scaffoldState,
-        topBar = {
-            TopAppBar(title = { Text("Account") })
-        },
+        // TODO: Set AppBar
+//        topBar = {
+//            TopAppBar(title = { Text("Account") })
+//        },
         snackbarHost = {
             SnackbarHost(it) { data ->
                 Snackbar(snackbarData = data)
