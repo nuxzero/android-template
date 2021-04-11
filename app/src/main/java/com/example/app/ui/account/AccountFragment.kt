@@ -7,25 +7,25 @@ import android.view.ViewGroup
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Snackbar
 import androidx.compose.material.SnackbarDuration
 import androidx.compose.material.SnackbarHost
-import androidx.compose.material.SnackbarHostState
 import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -54,7 +54,7 @@ class AccountFragment : BaseFragment() {
         binding = AccountFragmentBinding.inflate(inflater, container, false).apply {
             containerView.setContent {
                 MaterialTheme {
-                    AccountSettingsPage(viewModel)
+                    AccountSettingsScreen(viewModel)
                 }
             }
         }
@@ -70,41 +70,57 @@ class AccountFragment : BaseFragment() {
     }
 }
 
-@Composable
-fun AccountSettingsPage(viewModel: AccountViewModel) {
-    val profile by viewModel.profile.observeAsState()
-    profile?.let {
-        AccountSettings(it)
-    }
+enum class SettingMenu {
+    NOTIFICATION,
+    FAQ,
+    POLICY,
 }
 
 @Composable
-fun AccountSettings(profile: Profile) {
-    val snackbarHostState = remember { SnackbarHostState() }
+fun AccountSettingsScreen(viewModel: AccountViewModel) {
+    val profile by viewModel.profile.observeAsState()
+    val scaffoldState = rememberScaffoldState()
     val coroutineScope = rememberCoroutineScope()
-    Box(modifier = Modifier.fillMaxSize()) {
-        Column {
-            ProfileInfo(profile)
-            SettingMenuItem("Notifications") {
-                coroutineScope.launch {
-                    snackbarHostState.showSnackbar("Tapped notification setting!", duration = SnackbarDuration.Short)
-                }
+    Scaffold(
+        scaffoldState = scaffoldState,
+        topBar = {
+            TopAppBar(title = { Text("Account") })
+        },
+        snackbarHost = {
+            SnackbarHost(it) { data ->
+                Snackbar(snackbarData = data)
             }
-            SettingMenuItem("FAQ") {
-                coroutineScope.launch {
-                    snackbarHostState.showSnackbar("Tapped FAQ!", duration = SnackbarDuration.Short)
-                }
-            }
-            SettingMenuItem("Policy") {
-                coroutineScope.launch {
-                    snackbarHostState.showSnackbar("Tapped policy!", duration = SnackbarDuration.Short)
+        },
+        content = {
+            profile?.let {
+                AccountSettings(it) { settingMenu ->
+                    val message = when (settingMenu) {
+                        SettingMenu.NOTIFICATION -> "notifications"
+                        SettingMenu.FAQ -> "FAQ"
+                        SettingMenu.POLICY -> "policy"
+                    }
+                    coroutineScope.launch {
+                        scaffoldState.snackbarHostState.showSnackbar("Tapped $message!", duration = SnackbarDuration.Short)
+                    }
                 }
             }
         }
-        SnackbarHost(
-            hostState = snackbarHostState,
-            modifier = Modifier.align(Alignment.BottomCenter)
-        )
+    )
+}
+
+@Composable
+fun AccountSettings(profile: Profile, onSettingClicked: (SettingMenu) -> Unit) {
+    Column {
+        ProfileInfo(profile)
+        SettingMenuItem("Notifications") {
+            onSettingClicked(SettingMenu.NOTIFICATION)
+        }
+        SettingMenuItem("FAQ") {
+            onSettingClicked(SettingMenu.FAQ)
+        }
+        SettingMenuItem("Policy") {
+            onSettingClicked(SettingMenu.POLICY)
+        }
     }
 }
 
@@ -180,6 +196,6 @@ fun AccountSettingsPreview() {
         image = "https://picsum.photos/id/237/200/300"
     )
     MaterialTheme {
-        AccountSettings(profile)
+        AccountSettings(profile) {}
     }
 }
