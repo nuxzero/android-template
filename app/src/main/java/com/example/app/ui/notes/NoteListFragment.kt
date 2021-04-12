@@ -74,6 +74,8 @@ class NoteListFragment : BaseFragment() {
                 AppTheme {
                     NotesScreen(viewModel) { note ->
                         Log.d(TAG, note.title)
+                        val direction = NoteListFragmentDirections.actionNoteListFragmentToNoteDetailFragment(note)
+                        findNavController().navigate(direction)
                     }
                 }
             }
