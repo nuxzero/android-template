@@ -10,7 +10,11 @@ import androidx.compose.runtime.Composable
 
 @Composable
 fun AppTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
-    MaterialTheme(colors = if (darkTheme) DarkColors() else LightColors(), content = content)
+    MaterialTheme(
+        colors = if (darkTheme) DarkColors() else LightColors(),
+        content = content,
+        typography = AppTypography,
+    )
 }
 
 private fun DarkColors(): Colors = darkColors(

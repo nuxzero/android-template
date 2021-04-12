@@ -155,13 +155,14 @@ fun ProfileInfo(profile: Profile) {
         ) {
             Text(
                 profile.fullName,
-                fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colors.primary,
+                style = MaterialTheme.typography.h6,
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
                 profile.email,
                 color = MaterialTheme.colors.primary,
+                style = MaterialTheme.typography.body1,
             )
         }
     }
@@ -177,7 +178,7 @@ fun SettingMenuItem(title: String, action: (() -> Unit)? = null) {
     ) {
         Text(
             title,
-            fontWeight = FontWeight.Bold,
+            style = MaterialTheme.typography.subtitle2,
             color = MaterialTheme.colors.primary,
             modifier = Modifier.weight(1f)
         )
