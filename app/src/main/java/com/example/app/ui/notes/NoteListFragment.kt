@@ -5,8 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -18,14 +16,10 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -33,28 +27,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupWithNavController
-import androidx.recyclerview.widget.RecyclerView
-import com.example.app.R
 import com.example.app.data.models.Note
-import com.example.app.databinding.NoteItemBinding
 import com.example.app.databinding.NoteListFragmentBinding
 import com.example.app.ui.theme.AppTheme
 import com.example.app.util.BaseFragment
 import com.google.accompanist.glide.GlideImage
-import com.google.android.material.transition.MaterialElevationScale
 import java.text.DateFormat
 import java.util.Date
-
-typealias NoteListItemClickListener = (View, Note) -> Unit
 
 class NoteListFragment : BaseFragment() {
 
@@ -86,71 +70,8 @@ class NoteListFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.toolbar.setupWithNavController(findNavController())
-//        (activity as? AppCompatActivity)?.setSupportActionBar(binding.toolbar)
-//        NavigationUI.setupWithNavController(binding.toolbar, findNavController())
-
         postponeEnterTransition()
         binding.root.doOnPreDraw { startPostponedEnterTransition() }
-
-        setupListView()
-    }
-
-    private fun setupListView() {
-        val adapter = NoteListItemAdapter { itemView, note ->
-            // Navigate to note detail
-            val noteDetailTransitionName = getString(R.string.note_detail_transition_name)
-            val extras = FragmentNavigatorExtras(itemView to noteDetailTransitionName)
-            val direction = NoteListFragmentDirections.actionNoteListFragmentToNoteDetailFragment(note)
-            findNavController().navigate(direction, extras)
-
-            // Set layout motion
-            exitTransition = MaterialElevationScale(false).apply {
-                duration = resources.getInteger(R.integer.note_motion_duration).toLong()
-            }
-            reenterTransition = MaterialElevationScale(true).apply {
-                duration = resources.getInteger(R.integer.note_motion_duration).toLong()
-            }
-        }
-        binding.noteList.adapter = adapter
-
-        viewModel.notes.observe(viewLifecycleOwner, { notes ->
-            adapter.setNotes(notes)
-        })
-    }
-}
-
-class NoteListItemAdapter(private val listener: NoteListItemClickListener) :
-    RecyclerView.Adapter<NoteListItemViewHolder>() {
-
-    private var _notes = listOf<Note>()
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteListItemViewHolder {
-        val binding = NoteItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return NoteListItemViewHolder(binding, listener)
-    }
-
-    override fun onBindViewHolder(holder: NoteListItemViewHolder, position: Int) {
-        holder.bind(_notes[position])
-    }
-
-    override fun getItemCount(): Int = _notes.size
-    fun setNotes(notes: List<Note>) {
-        _notes = notes
-        notifyDataSetChanged()
-    }
-}
-
-class NoteListItemViewHolder(
-    private val binding: NoteItemBinding,
-    private val listener: NoteListItemClickListener
-) : RecyclerView.ViewHolder(binding.root) {
-
-    fun bind(note: Note) {
-        with(binding) {
-            this.note = note
-            this.root.setOnClickListener { listener.invoke(binding.root, note) }
-        }
     }
 }
 
@@ -182,11 +103,11 @@ fun NotesContent(notes: List<Note>, onItemClicked: (Note) -> Unit) {
 @Composable
 fun NoteItem(note: Note, onItemClicked: (Note) -> Unit) {
     Row(modifier = Modifier.clickable { onItemClicked(note) }) {
-        Image(
-            painter = painterResource(id = R.drawable.sample_feature_image),
-//        GlideImage(
-//            data = note.image,
-//            fadeIn = true,
+//        Image(
+//            painter = painterResource(id = R.drawable.sample_feature_image),
+        GlideImage(
+            data = note.image,
+            fadeIn = true,
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = Modifier
