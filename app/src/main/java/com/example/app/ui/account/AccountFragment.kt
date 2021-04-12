@@ -1,5 +1,6 @@
 package com.example.app.ui.account
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -21,6 +22,7 @@ import androidx.compose.material.Snackbar
 import androidx.compose.material.SnackbarDuration
 import androidx.compose.material.SnackbarHost
 import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.material.lightColors
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
@@ -41,6 +43,7 @@ import androidx.fragment.app.viewModels
 import com.example.app.R
 import com.example.app.data.models.Profile
 import com.example.app.databinding.AccountFragmentBinding
+import com.example.app.ui.theme.AppTheme
 import com.example.app.util.BaseFragment
 import com.google.accompanist.glide.GlideImage
 import kotlinx.coroutines.launch
@@ -50,24 +53,10 @@ class AccountFragment : BaseFragment() {
     private lateinit var binding: AccountFragmentBinding
     private val viewModel: AccountViewModel by viewModels { viewModelFactory }
 
-    // TODO: Move these colors to proper theme file
-    val Red700 = Color(0xffdd0d3c)
-    val Red800 = Color(0xffd00036)
-    val Red900 = Color(0xffc20029)
-    private val LightColors = lightColors(
-        primary = Red700,
-        primaryVariant = Red900,
-        onPrimary = Color.White,
-        secondary = Red700,
-        secondaryVariant = Red900,
-        onSecondary = Color.White,
-        error = Red800,
-        background = Color(0xff000000)
-    )
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = AccountFragmentBinding.inflate(inflater, container, false).apply {
             containerView.setContent {
-                MaterialTheme(colors = LightColors) {
+                AppTheme {
                     AccountSettingsScreen(viewModel)
                 }
             }
@@ -98,9 +87,12 @@ fun AccountSettingsScreen(viewModel: AccountViewModel) {
     Scaffold(
         scaffoldState = scaffoldState,
         // TODO: Set AppBar
-//        topBar = {
-//            TopAppBar(title = { Text("Account") })
-//        },
+        topBar = {
+            TopAppBar(
+                title = { Text("Account", color = MaterialTheme.colors.primary) },
+                backgroundColor = Color.Transparent,
+            )
+        },
         snackbarHost = {
             SnackbarHost(it) { data ->
                 Snackbar(snackbarData = data)
@@ -141,7 +133,6 @@ fun AccountSettings(profile: Profile, onSettingClicked: (SettingMenu) -> Unit) {
 
 @Composable
 fun ProfileInfo(profile: Profile) {
-    val tintColor = Color(0xFF, 0xFF, 0xFF)
     Row(
         modifier = Modifier
             .padding(16.dp)
@@ -165,12 +156,12 @@ fun ProfileInfo(profile: Profile) {
             Text(
                 profile.fullName,
                 fontWeight = FontWeight.Bold,
-                color = tintColor,
+                color = MaterialTheme.colors.primary,
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
                 profile.email,
-                color = tintColor,
+                color = MaterialTheme.colors.primary,
             )
         }
     }
@@ -184,17 +175,16 @@ fun SettingMenuItem(title: String, action: (() -> Unit)? = null) {
             .fillMaxWidth()
             .clickable { action?.let { it() } }
     ) {
-        val tintColor = Color(0xFF, 0xFF, 0xFF)
         Text(
             title,
             fontWeight = FontWeight.Bold,
-            color = tintColor,
+            color = MaterialTheme.colors.primary,
             modifier = Modifier.weight(1f)
         )
         Image(
             painterResource(R.drawable.ic_arrow_forward),
             contentDescription = null,
-            colorFilter = ColorFilter.tint(tintColor),
+            colorFilter = ColorFilter.tint(MaterialTheme.colors.primary),
             alignment = Alignment.Center,
             modifier = Modifier.align(Alignment.CenterVertically)
         )
@@ -210,7 +200,21 @@ fun AccountSettingsPreview() {
         email = "john@email.com",
         image = "https://picsum.photos/id/237/200/300"
     )
-    MaterialTheme {
+    AppTheme(darkTheme = false) {
+        AccountSettings(profile) {}
+    }
+}
+
+@Preview
+@Composable
+fun DarkAccountSettingsPreview() {
+    val profile = Profile(
+        id = 1,
+        fullName = "John Doe",
+        email = "john@email.com",
+        image = "https://picsum.photos/id/237/200/300"
+    )
+    AppTheme(darkTheme = true) {
         AccountSettings(profile) {}
     }
 }
