@@ -97,7 +97,7 @@ fun NoteDetailContent(note: Note, onBackPressed: () -> Unit) {
                     IconButton(onClick = { onBackPressed() }) {
                         Icon(
                             imageVector = Icons.Filled.ArrowBack,
-                            contentDescription = null,
+                            contentDescription = "Back button",
                             tint = MaterialTheme.colors.primary,
                         )
                     }
@@ -136,7 +136,7 @@ fun NoteDetailContent(note: Note, onBackPressed: () -> Unit) {
                 Spacer(modifier = Modifier.height(24.dp))
                 GlideImage(
                     data = note.image,
-                    contentDescription = null,
+                    contentDescription = "URL: ${note.image}",
                     fadeIn = true,
                     modifier = Modifier
                         .aspectRatio(1.56f),
