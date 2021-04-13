@@ -108,7 +108,7 @@ fun NoteItem(note: Note, onItemClicked: (Note) -> Unit) {
         GlideImage(
             data = note.image,
             fadeIn = true,
-            contentDescription = null,
+            contentDescription = "URL: ${note.image}",
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .padding(16.dp)
