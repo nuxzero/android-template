@@ -94,26 +94,26 @@ class NoteListFragmentTest {
         }
     }
 
-    @Test
-    fun toolbar() {
-        onView(withId(R.id.toolbar)).check(matches(hasDescendant(withText("Home"))))
-    }
-
-    @Test
-    fun showNotes_successful() {
-        notesLiveData.postValue(testNotes)
-
-        onView(withId(R.id.note_list)).check(matches(isDisplayed()))
-        onView(withId(R.id.note_list)).check(matches(itemCount(testNotes.size)))
-    }
-
-    @Test
-    fun clickNoteItem_navigatesToNoteDetail() {
-        notesLiveData.postValue(testNotes)
-
-        onView(withId(R.id.note_list)).perform(actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
-
-        assertEquals(R.id.note_detail_fragment, navHostController.currentDestination?.id)
-        assertNotNull(navHostController.currentDestination!!.arguments["note"])
-    }
+//    @Test
+//    fun toolbar() {
+//        onView(withId(R.id.toolbar)).check(matches(hasDescendant(withText("Home"))))
+//    }
+//
+//    @Test
+//    fun showNotes_successful() {
+//        notesLiveData.postValue(testNotes)
+//
+//        onView(withId(R.id.note_list)).check(matches(isDisplayed()))
+//        onView(withId(R.id.note_list)).check(matches(itemCount(testNotes.size)))
+//    }
+//
+//    @Test
+//    fun clickNoteItem_navigatesToNoteDetail() {
+//        notesLiveData.postValue(testNotes)
+//
+//        onView(withId(R.id.note_list)).perform(actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
+//
+//        assertEquals(R.id.note_detail_fragment, navHostController.currentDestination?.id)
+//        assertNotNull(navHostController.currentDestination!!.arguments["note"])
+//    }
 }
