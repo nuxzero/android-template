@@ -7,6 +7,7 @@ This is starter project for building Android app.
 | Branch name | Description |
 |---|---|
 | [`aac-dagger-binding`](https://github.com/nuxzero/android-template/tree/aac-dagger-binding) | Android Architecture Component, Dagger2, Data Binding |
+| [`aac-dagger-compose`](https://github.com/nuxzero/android-template/tree/aac-dagger-compose) | Android Architecture Component, Dagger2, Jetpack Compose |
 | [`aac-hilt-binding`](https://github.com/nuxzero/android-template/tree/aac-hilt-binding) | Android Architecture Component, Hilt, Data Binding |
 
 ## Tasks
