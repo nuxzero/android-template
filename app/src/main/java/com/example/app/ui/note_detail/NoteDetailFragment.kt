@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -38,7 +39,7 @@ import com.example.app.databinding.NoteDetailFragmentBinding
 import com.example.app.ui.theme.AppTheme
 import com.example.app.util.BaseFragment
 import com.example.app.util.themeColor
-import com.google.accompanist.glide.GlideImage
+import com.google.accompanist.glide.rememberGlidePainter
 import com.google.android.material.transition.MaterialContainerTransform
 import java.text.DateFormat
 import java.util.Date
@@ -134,10 +135,13 @@ fun NoteDetailContent(note: Note, onBackPressed: () -> Unit) {
                     )
                 }
                 Spacer(modifier = Modifier.height(24.dp))
-                GlideImage(
-                    data = note.image,
+                Image(
+                    painter = rememberGlidePainter(
+                        request = note.image,
+                        previewPlaceholder = R.drawable.sample_feature_image,
+                        fadeIn = true
+                    ),
                     contentDescription = "URL: ${note.image}",
-                    fadeIn = true,
                     modifier = Modifier
                         .aspectRatio(1.56f),
                     contentScale = ContentScale.Crop
