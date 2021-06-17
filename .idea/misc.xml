@@ -14,11 +14,16 @@
         <entry key="../../../../../layout/compose-model-1621341871641.xml" value="0.23683110367892976" />
         <entry key="../../../../../layout/compose-model-1621341906426.xml" value="0.45425361155698235" />
         <entry key="../../../../../layout/compose-model-1621342328331.xml" value="0.47846283783783783" />
+        <entry key="../../../../../layout/compose-model-1621432428539.xml" value="0.4546548956661316" />
+        <entry key="../../../../../layout/compose-model-1621432731295.xml" value="0.4438202247191011" />
+        <entry key="../../../../../layout/compose-model-1621432947106.xml" value="0.4546548956661316" />
+        <entry key="../../../../../layout/compose-model-1624098997189.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/main_activity.xml" value="0.26458333333333334" />
       </map>
     </option>
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="azul-11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
