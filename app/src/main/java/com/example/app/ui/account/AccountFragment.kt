@@ -143,7 +143,7 @@ fun ProfileInfo(profile: Profile) {
                 previewPlaceholder = R.drawable.sample_feature_image,
                 fadeIn = true,
             ),
-            contentDescription = null,
+            contentDescription = "profile image",
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .height(80.dp)
