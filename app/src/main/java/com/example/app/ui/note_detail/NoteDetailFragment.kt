@@ -94,6 +94,7 @@ fun NoteDetailContent(note: Note, onBackPressed: () -> Unit) {
             TopAppBar(
                 title = { Text("Note", color = MaterialTheme.colors.primary) },
                 backgroundColor = androidx.compose.ui.graphics.Color.Transparent,
+                elevation = 0.dp,
                 navigationIcon = {
                     IconButton(onClick = { onBackPressed() }) {
                         Icon(
