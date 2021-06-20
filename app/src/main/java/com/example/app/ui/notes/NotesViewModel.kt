@@ -7,7 +7,7 @@ import com.example.app.data.NoteRepository
 import com.example.app.data.models.Note
 import javax.inject.Inject
 
-class NoteListViewModel @Inject constructor(
+class NotesViewModel @Inject constructor(
     private val noteRepository: NoteRepository,
 ) : ViewModel() {
 
