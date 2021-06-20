@@ -28,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.view.doOnPreDraw
@@ -35,7 +36,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.app.R
 import com.example.app.data.models.Note
-import com.example.app.databinding.NoteListFragmentBinding
 import com.example.app.ui.theme.AppTheme
 import com.example.app.util.BaseFragment
 import com.google.accompanist.glide.rememberGlidePainter
@@ -44,8 +44,9 @@ import java.util.Date
 
 class NoteListFragment : BaseFragment() {
 
-    private lateinit var binding: NoteListFragmentBinding
-    private val viewModel: NoteListViewModel by viewModels { viewModelFactory }
+    private lateinit var composeView: ComposeView
+    private val viewModel: NotesViewModel by viewModels { viewModelFactory }
+
 
     companion object {
         private const val TAG = "NoteListFragment"
@@ -55,8 +56,9 @@ class NoteListFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = NoteListFragmentBinding.inflate(inflater, container, false).apply {
-            composeView.setContent {
+        composeView = ComposeView(requireContext()).apply {
+            layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+            setContent {
                 AppTheme {
                     NotesScreen(viewModel) { note ->
                         Log.d(TAG, note.title)
@@ -66,19 +68,19 @@ class NoteListFragment : BaseFragment() {
                 }
             }
         }
-        return binding.root
+        return composeView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         postponeEnterTransition()
-        binding.root.doOnPreDraw { startPostponedEnterTransition() }
+        composeView.doOnPreDraw { startPostponedEnterTransition() }
     }
 }
 
 @Composable
-fun NotesScreen(viewModel: NoteListViewModel, onItemClicked: (Note) -> Unit) {
+fun NotesScreen(viewModel: NotesViewModel, onItemClicked: (Note) -> Unit) {
     val notes by viewModel.notes.observeAsState()
     notes?.let { NotesContent(notes = it, onItemClicked = onItemClicked) }
 }

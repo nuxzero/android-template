@@ -33,13 +33,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
 import com.example.app.R
 import com.example.app.data.models.Profile
-import com.example.app.databinding.AccountFragmentBinding
 import com.example.app.ui.theme.AppTheme
 import com.example.app.util.BaseFragment
 import com.google.accompanist.glide.rememberGlidePainter
@@ -47,27 +47,17 @@ import kotlinx.coroutines.launch
 
 class AccountFragment : BaseFragment() {
 
-    private lateinit var binding: AccountFragmentBinding
     private val viewModel: AccountViewModel by viewModels { viewModelFactory }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = AccountFragmentBinding.inflate(inflater, container, false).apply {
-            containerView.setContent {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
+        ComposeView(requireContext()).apply {
+            layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+            setContent {
                 AppTheme {
                     AccountScreen(viewModel)
                 }
             }
         }
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        binding.lifecycleOwner = viewLifecycleOwner
-        binding.profile = viewModel.profile
-
-    }
 }
 
 enum class SettingMenu {

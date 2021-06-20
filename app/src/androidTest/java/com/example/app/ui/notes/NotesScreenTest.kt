@@ -16,8 +16,6 @@ import com.example.app.R
 import com.example.app.data.models.Note
 import com.example.app.ui.theme.AppTheme
 import com.example.app.util.ViewModelFactory
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -33,7 +31,7 @@ class NotesScreenTest {
     val instantExecutorRule = InstantTaskExecutorRule()
     private lateinit var navHostController: TestNavHostController
     private val mockViewModelFactory = mock(ViewModelFactory::class.java)
-    private val viewModel = mock(NoteListViewModel::class.java)
+    private val viewModel = mock(NotesViewModel::class.java)
     private val notesLiveData = MutableLiveData<List<Note>>()
     private val context = InstrumentationRegistry.getInstrumentation().targetContext
 
@@ -66,7 +64,7 @@ class NotesScreenTest {
 
     @Before
     fun setUp() {
-        `when`(mockViewModelFactory.create(NoteListViewModel::class.java)).thenReturn(viewModel)
+        `when`(mockViewModelFactory.create(NotesViewModel::class.java)).thenReturn(viewModel)
         `when`(viewModel.notes).thenReturn(notesLiveData)
 
         // Set test NavHostController

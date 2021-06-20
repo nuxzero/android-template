@@ -29,13 +29,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.example.app.R
 import com.example.app.data.models.Note
-import com.example.app.databinding.NoteDetailFragmentBinding
 import com.example.app.ui.theme.AppTheme
 import com.example.app.util.BaseFragment
 import com.example.app.util.themeColor
@@ -46,13 +46,12 @@ import java.util.Date
 
 class NoteDetailFragment : BaseFragment() {
 
-    private lateinit var binding: NoteDetailFragmentBinding
-
     private val viewModel: NoteDetailViewModel by viewModels { viewModelFactory }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = NoteDetailFragmentBinding.inflate(inflater, container, false).apply {
-            composeView.setContent {
+        return ComposeView(requireContext()).apply {
+            layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+            setContent {
                 AppTheme {
                     NoteDetailScreen(viewModel, onBackPressed = {
                         requireActivity().onBackPressed()
@@ -60,7 +59,6 @@ class NoteDetailFragment : BaseFragment() {
                 }
             }
         }
-        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -76,7 +74,7 @@ class NoteDetailFragment : BaseFragment() {
         val note = args.note
         viewModel.setNoteId(note.id)
         viewModel.note.observe(viewLifecycleOwner, { note ->
-            binding.note = note
+            // TODO: Observe data changed here
         })
     }
 }

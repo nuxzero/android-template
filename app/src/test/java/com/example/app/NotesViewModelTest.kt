@@ -4,7 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.example.app.data.NoteRepository
 import com.example.app.data.models.Note
-import com.example.app.ui.notes.NoteListViewModel
+import com.example.app.ui.notes.NotesViewModel
 import com.example.app.utils.CoroutineTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
@@ -16,7 +16,7 @@ import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
 
 @ExperimentalCoroutinesApi
-class NoteListViewModelTest {
+class NotesViewModelTest {
 
     @get:Rule
     val instanceExecutor = InstantTaskExecutorRule()
@@ -31,7 +31,7 @@ class NoteListViewModelTest {
     fun `observe notes successful`() = runBlockingTest {
         val expectedNotes = emptyList<Note>()
         `when`(noteRepository.getNoteList()).thenReturn(flowOf(expectedNotes))
-        val viewModel = NoteListViewModel(noteRepository)
+        val viewModel = NotesViewModel(noteRepository)
 
         val result = viewModel.notes
 

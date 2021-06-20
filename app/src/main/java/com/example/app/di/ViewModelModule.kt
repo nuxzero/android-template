@@ -6,7 +6,7 @@ import com.example.app.ui.account.AccountViewModel
 import com.example.app.ui.note_detail.NoteDetailFragment
 import com.example.app.ui.note_detail.NoteDetailViewModel
 import com.example.app.ui.notes.NoteListFragment
-import com.example.app.ui.notes.NoteListViewModel
+import com.example.app.ui.notes.NotesViewModel
 import com.example.app.ui.splash_screen.SplashScreenFragment
 import com.example.app.ui.splash_screen.SplashScreenViewModel
 import com.example.app.util.ViewModelBuilder
@@ -39,8 +39,8 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(NoteListViewModel::class)
-    abstract fun bindNotesViewModel(viewModel: NoteListViewModel): ViewModel
+    @ViewModelKey(NotesViewModel::class)
+    abstract fun bindNotesViewModel(viewModel: NotesViewModel): ViewModel
 
     @Binds
     @IntoMap
