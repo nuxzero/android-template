@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -32,11 +33,12 @@ import androidx.compose.ui.unit.dp
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.app.R
 import com.example.app.data.models.Note
 import com.example.app.databinding.NoteListFragmentBinding
 import com.example.app.ui.theme.AppTheme
 import com.example.app.util.BaseFragment
-import com.google.accompanist.glide.GlideImage
+import com.google.accompanist.glide.rememberGlidePainter
 import java.text.DateFormat
 import java.util.Date
 
@@ -103,11 +105,12 @@ fun NotesContent(notes: List<Note>, onItemClicked: (Note) -> Unit) {
 @Composable
 fun NoteItem(note: Note, onItemClicked: (Note) -> Unit) {
     Row(modifier = Modifier.clickable { onItemClicked(note) }) {
-//        Image(
-//            painter = painterResource(id = R.drawable.sample_feature_image),
-        GlideImage(
-            data = note.image,
-            fadeIn = true,
+        Image(
+            painter = rememberGlidePainter(
+                request = note.image,
+                previewPlaceholder = R.drawable.sample_feature_image,
+                fadeIn = true,
+            ),
             contentDescription = "URL: ${note.image}",
             contentScale = ContentScale.Crop,
             modifier = Modifier
@@ -156,7 +159,7 @@ fun NoteItemPreview() {
         title = "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
         author = "John Doe",
         createdAt = Date(),
-        image = "https://picsum.photos/id/486/1280/720",
+        image = "https://picsum.photos/id/870/1280/720",
         note = ""
     )
 

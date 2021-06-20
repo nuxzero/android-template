@@ -42,7 +42,7 @@ import com.example.app.data.models.Profile
 import com.example.app.databinding.AccountFragmentBinding
 import com.example.app.ui.theme.AppTheme
 import com.example.app.util.BaseFragment
-import com.google.accompanist.glide.GlideImage
+import com.google.accompanist.glide.rememberGlidePainter
 import kotlinx.coroutines.launch
 
 class AccountFragment : BaseFragment() {
@@ -137,10 +137,13 @@ fun ProfileInfo(profile: Profile) {
             .padding(16.dp)
             .fillMaxWidth()
     ) {
-        GlideImage(
-            data = profile.image,
-            contentDescription = null,
-            fadeIn = true,
+        Image(
+            painter = rememberGlidePainter(
+                request = profile.image,
+                previewPlaceholder = R.drawable.sample_feature_image,
+                fadeIn = true,
+            ),
+            contentDescription = "profile image",
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .height(80.dp)
