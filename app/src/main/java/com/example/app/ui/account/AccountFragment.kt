@@ -92,6 +92,7 @@ fun AccountContent(profile: Profile) {
             TopAppBar(
                 title = { Text("Account", color = MaterialTheme.colors.primary) },
                 backgroundColor = Color.Transparent,
+                elevation = 0.dp,
             )
         },
         snackbarHost = {

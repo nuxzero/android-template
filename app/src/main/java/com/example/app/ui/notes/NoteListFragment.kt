@@ -90,6 +90,7 @@ fun NotesContent(notes: List<Note>, onItemClicked: (Note) -> Unit) {
             TopAppBar(
                 title = { Text("Home", color = MaterialTheme.colors.primary) },
                 backgroundColor = Color.Transparent,
+                elevation = 0.dp,
             )
         },
         content = {
