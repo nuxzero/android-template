@@ -116,6 +116,7 @@ dependencies {
 
     // Glide + Jetpack Compose
     implementation "com.google.accompanist:accompanist-glide:$accompanist_glide_version"
+    implementation "com.google.accompanist:accompanist-insets:$accompanist_insets_version"
 
     // dependency injection
     implementation "com.google.dagger:hilt-android:$dagger_hilt_version"

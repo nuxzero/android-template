@@ -41,6 +41,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.app.R
 import com.example.app.data.models.Profile
+import com.example.app.ui.components.AppTopBar
 import com.example.app.ui.theme.AppTheme
 import com.google.accompanist.glide.rememberGlidePainter
 import dagger.hilt.android.AndroidEntryPoint
@@ -81,11 +82,7 @@ fun AccountContent(profile: Profile) {
     Scaffold(
         scaffoldState = scaffoldState,
         topBar = {
-            TopAppBar(
-                title = { Text("Account", color = MaterialTheme.colors.primary) },
-                backgroundColor = Color.Transparent,
-                elevation = 0.dp,
-            )
+            AppTopBar(title = "Account")
         },
         snackbarHost = {
             SnackbarHost(it) { data ->

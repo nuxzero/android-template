@@ -2,7 +2,9 @@ package com.example.app.ui.main
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.WindowCompat
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -13,6 +15,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.app.R
 import com.example.app.databinding.MainActivityBinding
 import dagger.hilt.android.AndroidEntryPoint
+import com.example.app.ui.NotesApp
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -29,9 +32,17 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.main_activity)
 
-        setupBottomNavigation()
+        // This app draws behind the system bars, so we want to handle fitting system windows
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+
+        setContent {
+            NotesApp()
+        }
+
+//        binding = DataBindingUtil.setContentView(this, R.layout.main_activity)
+//
+//        setupBottomNavigation()
     }
 
     override fun onSupportNavigateUp(): Boolean {
