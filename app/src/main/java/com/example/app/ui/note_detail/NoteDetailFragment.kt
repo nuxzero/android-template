@@ -32,21 +32,23 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.example.app.R
 import com.example.app.data.models.Note
 import com.example.app.ui.theme.AppTheme
-import com.example.app.util.BaseFragment
 import com.example.app.util.themeColor
 import com.google.accompanist.glide.rememberGlidePainter
 import com.google.android.material.transition.MaterialContainerTransform
+import dagger.hilt.android.AndroidEntryPoint
 import java.text.DateFormat
 import java.util.Date
 
-class NoteDetailFragment : BaseFragment() {
+@AndroidEntryPoint
+class NoteDetailFragment : Fragment() {
 
-    private val viewModel: NoteDetailViewModel by viewModels { viewModelFactory }
+    private val viewModel: NoteDetailViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return ComposeView(requireContext()).apply {

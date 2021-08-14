@@ -31,21 +31,26 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.view.doOnPreDraw
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.app.R
 import com.example.app.data.models.Note
+import com.example.app.ui.note_detail.NoteDetailViewModel
 import com.example.app.ui.theme.AppTheme
-import com.example.app.util.BaseFragment
 import com.google.accompanist.glide.rememberGlidePainter
+import dagger.hilt.android.AndroidEntryPoint
 import java.text.DateFormat
 import java.util.Date
 
-class NoteListFragment : BaseFragment() {
+@AndroidEntryPoint
+class NoteListFragment : Fragment() {
 
     private lateinit var composeView: ComposeView
-    private val viewModel: NotesViewModel by viewModels { viewModelFactory }
+    private val viewModel: NotesViewModel by viewModels()
 
 
     companion object {

@@ -4,13 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.app.R
-import com.example.app.util.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 
-class SplashScreenFragment : BaseFragment() {
+@AndroidEntryPoint
+class SplashScreenFragment : Fragment() {
 
-    private val viewModel: SplashScreenViewModel by viewModels { viewModelFactory }
+    private val viewModel: SplashScreenViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

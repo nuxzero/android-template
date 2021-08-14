@@ -37,17 +37,19 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.app.R
 import com.example.app.data.models.Profile
 import com.example.app.ui.theme.AppTheme
-import com.example.app.util.BaseFragment
 import com.google.accompanist.glide.rememberGlidePainter
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
-class AccountFragment : BaseFragment() {
+@AndroidEntryPoint
+class AccountFragment : Fragment() {
 
-    private val viewModel: AccountViewModel by viewModels { viewModelFactory }
+    private val viewModel: AccountViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         ComposeView(requireContext()).apply {
