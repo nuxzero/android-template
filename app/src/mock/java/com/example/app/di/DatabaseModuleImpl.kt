@@ -9,8 +9,12 @@ import com.example.app.data.models.Note
 import com.example.app.data.models.Profile
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+@InstallIn(SingletonComponent::class)
 @Module
 class DatabaseModuleImpl : DatabaseModule {
     companion object {
@@ -19,7 +23,7 @@ class DatabaseModuleImpl : DatabaseModule {
 
     @Provides
     @Singleton
-    override fun provideDatabase(applicationContext: Context): AppDatabase {
+    override fun provideDatabase(@ApplicationContext applicationContext: Context): AppDatabase {
         return Room.databaseBuilder(
             applicationContext,
             AppDatabase::class.java, DATABASE_NAME
@@ -27,7 +31,6 @@ class DatabaseModuleImpl : DatabaseModule {
     }
 
     @Provides
-    @Singleton
     override fun provideNoteDao(database: AppDatabase): NoteDao = object : NoteDao {
         override suspend fun getAll(): List<Note> {
             return MockData.getAllNotes()
@@ -46,7 +49,6 @@ class DatabaseModuleImpl : DatabaseModule {
     }
 
     @Provides
-    @Singleton
     override fun provideProfileDao(database: AppDatabase): ProfileDao = object : ProfileDao {
         override suspend fun get(): Profile {
             return MockData.getProfile()
