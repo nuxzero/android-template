@@ -15,4 +15,13 @@ data class Profile(
     @SerializedName("full_name")
     val fullName: String,
     val image: String,
-)
+) {
+    companion object {
+        val Empty = Profile(
+            id = -1,
+            email = "",
+            fullName = "",
+            image = "",
+        )
+    }
+}

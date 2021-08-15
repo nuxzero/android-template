@@ -21,4 +21,15 @@ data class Note(
     val createdAt: Date,
     val image: String,
     val note: String,
-) : Parcelable
+) : Parcelable {
+    companion object {
+        val Empty = Note(
+            id = -1,
+            title = "",
+            author = "",
+            createdAt = Date(),
+            image = "",
+            note = "",
+        )
+    }
+}
