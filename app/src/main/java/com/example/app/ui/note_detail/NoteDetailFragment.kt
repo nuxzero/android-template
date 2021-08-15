@@ -25,8 +25,8 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
@@ -34,6 +34,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.navArgs
 import com.example.app.R
 import com.example.app.data.models.Note
@@ -75,7 +77,7 @@ class NoteDetailFragment : Fragment() {
         val args = navArgs<NoteDetailFragmentArgs>().value
         val note = args.note
         viewModel.setNoteId(note.id)
-        viewModel.note.observe(viewLifecycleOwner, { note ->
+        viewModel.note.asLiveData().observe(viewLifecycleOwner, { note ->
             // TODO: Observe data changed here
         })
     }
@@ -83,8 +85,16 @@ class NoteDetailFragment : Fragment() {
 
 @Composable
 fun NoteDetailScreen(viewModel: NoteDetailViewModel, onBackPressed: () -> Unit) {
-    val note by viewModel.note.observeAsState()
-    note?.let { NoteDetailContent(it, onBackPressed) }
+    val note by viewModel.note.collectAsState(Note.Empty)
+    NoteDetailContent(note, onBackPressed)
+}
+
+@Composable
+fun NoteDetailContent(noteId: Int, onBackPressed: () -> Unit) {
+    val viewModel: NoteDetailViewModel = hiltViewModel()
+    val note by viewModel.note.collectAsState(initial = Note.Empty)
+    viewModel.setNoteId(noteId) // TODO: Refactor this
+    NoteDetailContent(note = note, onBackPressed = onBackPressed)
 }
 
 @Composable

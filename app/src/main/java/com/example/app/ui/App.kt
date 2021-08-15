@@ -15,9 +15,18 @@ import com.example.app.ui.theme.AppTheme
 import com.google.accompanist.insets.ProvideWindowInsets
 
 
+sealed class NavigationRoute(val route: String) {
+    object Home : NavigationRoute("home/notes")
+    object Account : NavigationRoute("home/account")
+    object NoteDetail : NavigationRoute("notes/{noteId}") {
+        const val NOTE_ID_ARG = "noteId"
+        fun createRoute(noteId: Int): String = "notes/${noteId}"
+    }
+}
+
 enum class HomeSections(@StringRes val title: Int, @DrawableRes val icon: Int, val route: String) {
-    HOME(R.string.home, R.drawable.ic_bottom_nav_home, "home/home"),
-    ACCOUNT(R.string.account, R.drawable.ic_bottom_nav_account, "home/account"),
+    HOME(R.string.home, R.drawable.ic_bottom_nav_home, NavigationRoute.Home.route),
+    ACCOUNT(R.string.account, R.drawable.ic_bottom_nav_account, NavigationRoute.Account.route),
 }
 
 private val isBottomBarShow = true

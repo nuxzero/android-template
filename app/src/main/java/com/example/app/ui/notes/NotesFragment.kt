@@ -22,6 +22,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
@@ -86,6 +87,6 @@ class NoteListFragment : Fragment() {
 
 @Composable
 fun NotesScreen(viewModel: NotesViewModel, onItemClicked: (Note) -> Unit) {
-    val notes by viewModel.notes.observeAsState()
-    notes?.let { NotesContent(notes = it, onItemClicked = onItemClicked) }
+    val notes by viewModel.notes.collectAsState(listOf())
+    NotesContent(notes = notes, onItemClicked = onItemClicked)
 }

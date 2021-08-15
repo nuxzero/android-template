@@ -21,16 +21,16 @@ import androidx.compose.material.Snackbar
 import androidx.compose.material.SnackbarDuration
 import androidx.compose.material.SnackbarHost
 import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
@@ -39,6 +39,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.asLiveData
 import com.example.app.R
 import com.example.app.data.models.Profile
 import com.example.app.ui.components.AppTopBar
@@ -71,8 +73,15 @@ enum class SettingMenu {
 
 @Composable
 fun AccountScreen(viewModel: AccountViewModel) {
-    val profile by viewModel.profile.observeAsState()
+    val profile by viewModel.profile.asLiveData().observeAsState()
     profile?.let { AccountContent(it) }
+}
+
+@Composable
+fun AccountContent() {
+    val viewModel: AccountViewModel = hiltViewModel()
+    val profile by viewModel.profile.collectAsState(Profile.Empty)
+    AccountContent(profile)
 }
 
 @Composable
