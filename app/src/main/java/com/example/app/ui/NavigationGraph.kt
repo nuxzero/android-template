@@ -6,8 +6,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.app.ui.account.AccountContent
-import com.example.app.ui.note_detail.NoteDetailContent
+import com.example.app.ui.account.AccountScreen
+import com.example.app.ui.note_detail.NoteDetailScreen
 import com.example.app.ui.notes.NotesContent
 import androidx.navigation.NavType
 import androidx.navigation.compose.navArgument
@@ -27,7 +27,7 @@ fun NavigationGraph(
         }
 
         composable(HomeSections.ACCOUNT.route) {
-            AccountContent()
+            AccountScreen()
         }
 
         composable(
@@ -39,7 +39,7 @@ fun NavigationGraph(
             )
         ) { backStackEntry ->
             backStackEntry.arguments?.getInt(NavigationRoute.NoteDetail.NOTE_ID_ARG)?.let { noteId ->
-                NoteDetailContent(noteId) {
+                NoteDetailScreen(noteId) {
                     navController.navigateUp()
                 }
             }

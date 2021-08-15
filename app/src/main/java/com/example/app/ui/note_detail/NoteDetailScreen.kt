@@ -1,10 +1,5 @@
 package com.example.app.ui.note_detail
 
-import android.graphics.Color
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -29,76 +24,26 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.asLiveData
-import androidx.navigation.fragment.navArgs
 import com.example.app.R
 import com.example.app.data.models.Note
 import com.example.app.ui.theme.AppTheme
-import com.example.app.util.themeColor
 import com.google.accompanist.glide.rememberGlidePainter
-import com.google.android.material.transition.MaterialContainerTransform
-import dagger.hilt.android.AndroidEntryPoint
 import java.text.DateFormat
 import java.util.Date
 
-@AndroidEntryPoint
-class NoteDetailFragment : Fragment() {
-
-    private val viewModel: NoteDetailViewModel by viewModels()
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        return ComposeView(requireContext()).apply {
-            layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
-            setContent {
-                AppTheme {
-                    NoteDetailScreen(viewModel, onBackPressed = {
-                        requireActivity().onBackPressed()
-                    })
-                }
-            }
-        }
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        sharedElementEnterTransition = MaterialContainerTransform().apply {
-            drawingViewId = R.id.nav_host_fragment
-            duration = resources.getInteger(R.integer.note_motion_duration).toLong()
-            scrimColor = Color.TRANSPARENT
-            setAllContainerColors(requireContext().themeColor(R.attr.colorSurface))
-        }
-
-        val args = navArgs<NoteDetailFragmentArgs>().value
-        val note = args.note
-        viewModel.setNoteId(note.id)
-        viewModel.note.asLiveData().observe(viewLifecycleOwner, { note ->
-            // TODO: Observe data changed here
-        })
-    }
-}
-
 @Composable
-fun NoteDetailScreen(viewModel: NoteDetailViewModel, onBackPressed: () -> Unit) {
-    val note by viewModel.note.collectAsState(Note.Empty)
-    NoteDetailContent(note, onBackPressed)
-}
-
-@Composable
-fun NoteDetailContent(noteId: Int, onBackPressed: () -> Unit) {
+fun NoteDetailScreen(noteId: Int, onBackPressed: () -> Unit) {
     val viewModel: NoteDetailViewModel = hiltViewModel()
     val note by viewModel.note.collectAsState(initial = Note.Empty)
     viewModel.setNoteId(noteId) // TODO: Refactor this
-    NoteDetailContent(note = note, onBackPressed = onBackPressed)
+    NoteDetailScreen(note = note, onBackPressed = onBackPressed)
 }
 
 @Composable
-fun NoteDetailContent(note: Note, onBackPressed: () -> Unit) {
+fun NoteDetailScreen(note: Note, onBackPressed: () -> Unit) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -173,7 +118,7 @@ fun NoteDetailContent(note: Note, onBackPressed: () -> Unit) {
 
 @Preview
 @Composable
-fun NoteDetailContentPreview() {
+fun NoteDetailScreenPreview() {
     val note = Note(
         id = 1,
         title = "Lsed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
@@ -183,6 +128,6 @@ fun NoteDetailContentPreview() {
         note = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis ultricies lacus sed turpis tincidunt id aliquet risus feugiat. Morbi tincidunt augue interdum velit euismod in pellentesque massa. Donec pretium vulputate sapien nec sagittis aliquam malesuada bibendum arcu. Tincidunt tortor aliquam nulla facilisi cras. Adipiscing at in tellus integer. Lorem donec massa sapien faucibus et molestie ac feugiat sed. Adipiscing elit ut aliquam purus sit amet luctus venenatis. Nisl nunc mi ipsum faucibus. A pellentesque sit amet porttitor. Mattis rhoncus urna neque viverra justo nec ultrices dui sapien.\\n\\nElementum nisi quis eleifend quam adipiscing vitae proin sagittis. Faucibus pulvinar elementum integer enim neque. Dapibus ultrices in iaculis nunc sed. Sit amet justo donec enim diam vulputate ut pharetra. Risus at ultrices mi tempus. Cursus in hac habitasse platea dictumst quisque sagittis purus sit. Lorem ipsum dolor sit amet consectetur adipiscing elit pellentesque. Imperdiet sed euismod nisi porta lorem mollis aliquam ut. Diam maecenas ultricies mi eget. Posuere lorem ipsum dolor sit amet consectetur adipiscing elit duis. Non diam phasellus vestibulum lorem sed risus ultricies tristique. In aliquam sem fringilla ut morbi tincidunt augue interdum. Lorem sed risus ultricies tristique nulla. Purus semper eget duis at tellus at urna condimentum. Feugiat vivamus at augue eget arcu dictum."
     )
     AppTheme(darkTheme = true) {
-        NoteDetailContent(note, onBackPressed = {})
+        NoteDetailScreen(note, onBackPressed = {})
     }
 }

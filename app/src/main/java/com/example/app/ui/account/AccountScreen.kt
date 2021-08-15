@@ -1,9 +1,5 @@
 package com.example.app.ui.account
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -23,47 +19,24 @@ import androidx.compose.material.SnackbarHost
 import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.asLiveData
 import com.example.app.R
 import com.example.app.data.models.Profile
 import com.example.app.ui.components.AppTopBar
 import com.example.app.ui.theme.AppTheme
 import com.google.accompanist.glide.rememberGlidePainter
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-
-@AndroidEntryPoint
-class AccountFragment : Fragment() {
-
-    private val viewModel: AccountViewModel by viewModels()
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
-        ComposeView(requireContext()).apply {
-            layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
-            setContent {
-                AppTheme {
-                    AccountScreen(viewModel)
-                }
-            }
-        }
-}
 
 enum class SettingMenu {
     NOTIFICATION,
@@ -72,20 +45,14 @@ enum class SettingMenu {
 }
 
 @Composable
-fun AccountScreen(viewModel: AccountViewModel) {
-    val profile by viewModel.profile.asLiveData().observeAsState()
-    profile?.let { AccountContent(it) }
-}
-
-@Composable
-fun AccountContent() {
+fun AccountScreen() {
     val viewModel: AccountViewModel = hiltViewModel()
     val profile by viewModel.profile.collectAsState(Profile.Empty)
-    AccountContent(profile)
+    AccountScreen(profile)
 }
 
 @Composable
-fun AccountContent(profile: Profile) {
+fun AccountScreen(profile: Profile) {
     val scaffoldState = rememberScaffoldState()
     val coroutineScope = rememberCoroutineScope()
     Scaffold(
@@ -198,7 +165,7 @@ fun SettingMenuItem(title: String, action: (() -> Unit)? = null) {
 
 @Preview
 @Composable
-fun AccountContentPreview() {
+fun AccountScreenPreview() {
     val profile = Profile(
         id = 1,
         fullName = "John Doe",
@@ -206,13 +173,13 @@ fun AccountContentPreview() {
         image = "https://picsum.photos/id/237/200/300"
     )
     AppTheme(darkTheme = false) {
-        AccountContent(profile)
+        AccountScreen(profile)
     }
 }
 
 @Preview
 @Composable
-fun DarkAccountContentPreview() {
+fun DarkAccountScreenPreview() {
     val profile = Profile(
         id = 1,
         fullName = "John Doe",
@@ -220,6 +187,6 @@ fun DarkAccountContentPreview() {
         image = "https://picsum.photos/id/237/200/300"
     )
     AppTheme(darkTheme = true) {
-        AccountContent(profile)
+        AccountScreen(profile)
     }
 }
