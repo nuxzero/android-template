@@ -29,29 +29,28 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.app.R
 import com.example.app.data.models.Note
+import com.example.app.ui.components.AppTopBar
 import com.example.app.ui.theme.AppTheme
 import com.google.accompanist.glide.rememberGlidePainter
 import java.text.DateFormat
 import java.util.Date
 
 @Composable
-fun NoteDetailScreen(noteId: Int, onBackPressed: () -> Unit) {
+fun NoteDetailScreen(noteId: Int, onNavigationIconClick: () -> Unit) {
     val viewModel: NoteDetailViewModel = hiltViewModel()
     val note by viewModel.note.collectAsState(initial = Note.Empty)
     viewModel.setNoteId(noteId) // TODO: Refactor this
-    NoteDetailScreen(note = note, onBackPressed = onBackPressed)
+    NoteDetailScreen(note = note, onNavigationIconClick = onNavigationIconClick)
 }
 
 @Composable
-fun NoteDetailScreen(note: Note, onBackPressed: () -> Unit) {
+fun NoteDetailScreen(note: Note, onNavigationIconClick: () -> Unit) {
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = { Text("Note", color = MaterialTheme.colors.primary) },
-                backgroundColor = androidx.compose.ui.graphics.Color.Transparent,
-                elevation = 0.dp,
+            AppTopBar(
+                title = "Note",
                 navigationIcon = {
-                    IconButton(onClick = { onBackPressed() }) {
+                    IconButton(onClick = { onNavigationIconClick() }) {
                         Icon(
                             imageVector = Icons.Filled.ArrowBack,
                             contentDescription = "Back button",
@@ -128,6 +127,6 @@ fun NoteDetailScreenPreview() {
         note = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis ultricies lacus sed turpis tincidunt id aliquet risus feugiat. Morbi tincidunt augue interdum velit euismod in pellentesque massa. Donec pretium vulputate sapien nec sagittis aliquam malesuada bibendum arcu. Tincidunt tortor aliquam nulla facilisi cras. Adipiscing at in tellus integer. Lorem donec massa sapien faucibus et molestie ac feugiat sed. Adipiscing elit ut aliquam purus sit amet luctus venenatis. Nisl nunc mi ipsum faucibus. A pellentesque sit amet porttitor. Mattis rhoncus urna neque viverra justo nec ultrices dui sapien.\\n\\nElementum nisi quis eleifend quam adipiscing vitae proin sagittis. Faucibus pulvinar elementum integer enim neque. Dapibus ultrices in iaculis nunc sed. Sit amet justo donec enim diam vulputate ut pharetra. Risus at ultrices mi tempus. Cursus in hac habitasse platea dictumst quisque sagittis purus sit. Lorem ipsum dolor sit amet consectetur adipiscing elit pellentesque. Imperdiet sed euismod nisi porta lorem mollis aliquam ut. Diam maecenas ultricies mi eget. Posuere lorem ipsum dolor sit amet consectetur adipiscing elit duis. Non diam phasellus vestibulum lorem sed risus ultricies tristique. In aliquam sem fringilla ut morbi tincidunt augue interdum. Lorem sed risus ultricies tristique nulla. Purus semper eget duis at tellus at urna condimentum. Feugiat vivamus at augue eget arcu dictum."
     )
     AppTheme(darkTheme = true) {
-        NoteDetailScreen(note, onBackPressed = {})
+        NoteDetailScreen(note, onNavigationIconClick = {})
     }
 }

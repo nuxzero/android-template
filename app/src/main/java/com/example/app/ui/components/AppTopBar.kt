@@ -12,12 +12,13 @@ import com.google.accompanist.insets.statusBarsPadding
 
 
 @Composable
-fun AppTopBar(modifier: Modifier = Modifier, title: String) {
+fun AppTopBar(modifier: Modifier = Modifier, title: String, navigationIcon: (@Composable () -> Unit)? = null) {
     Surface(modifier = modifier.statusBarsPadding()) {
         TopAppBar(
             title = { Text(title, color = MaterialTheme.colors.primary) },
             backgroundColor = Color.Transparent,
             elevation = 0.dp,
+            navigationIcon = navigationIcon,
         )
     }
 }
