@@ -10,7 +10,7 @@ import com.example.app.ui.account.AccountScreen
 import com.example.app.ui.note_detail.NoteDetailScreen
 import com.example.app.ui.notes.NotesContent
 import androidx.navigation.NavType
-import androidx.navigation.compose.navArgument
+import androidx.navigation.navArgument
 
 
 @Composable
